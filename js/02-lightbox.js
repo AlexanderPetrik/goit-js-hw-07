@@ -31,7 +31,10 @@ const createGalleryItems = () => {
 
 createGalleryItems();
 
-new SimpleLightbox('.gallery a');
+new SimpleLightbox('.gallery a', {
+    captionData: 'alt',
+    captionDelay: 250
+});
 
 
 

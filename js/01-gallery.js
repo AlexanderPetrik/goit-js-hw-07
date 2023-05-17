@@ -7,6 +7,8 @@ const refs = {
     image__box: document.createElement('div'),
 };
 
+refs.gallery.addEventListener("click", onGalleryClick);
+
 const createGalleryItem = ({ preview, original, description }) => {
     return `
     <li class="gallery__item">
@@ -34,30 +36,22 @@ const createGalleryItems = () => {
 
 createGalleryItems();
 
-refs.image__box.append(refs.image);
-
-const lightbox = basicLightbox.create(refs.image__box);
-
-refs.gallery.addEventListener("click", onGalleryClick);
-
 function onGalleryClick(e) {
     e.preventDefault();
     if (e.target.nodeName !== 'IMG') {
         return;
     }
     
-    refs.image.src = e.target.getAttribute("data-source");
-    refs.image.alt = e.target.alt;
+    const lightbox = basicLightbox.create(`<img src="${e.target.dataset.source}" alt="e.target.alt" />`, {
+        onShow: () => {window.addEventListener("keydown", clickKey);},
+        onClose: () => {window.removeEventListener("kedown", clickKey);}
+    });
 
-    lightbox.show();
-}
-
-window.addEventListener("keyup", clickKey);
-
-function clickKey(event) {
+    function clickKey(event) {
     if (event.code === "Escape") {
         lightbox.close();
     }
 }
 
-console.log(galleryItems);
+    lightbox.show();
+}
