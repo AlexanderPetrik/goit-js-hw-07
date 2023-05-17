@@ -32,7 +32,7 @@ const createGalleryItems = () => {
 createGalleryItems();
 
 new SimpleLightbox('.gallery a', {
-    captionData: 'alt',
+    captionsData: 'alt',
     captionDelay: 250
 });
 
